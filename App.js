@@ -26,7 +26,7 @@ function Home({ navigation }) {
   });
 
   function addNote() {
-    console.log("here");
+    navigation.navigate("Add Note");
   }
 
   function renderItem({ item }) {
@@ -56,25 +56,45 @@ function Home({ navigation }) {
   );
 }
 
+function AddNote({ navigation }) {
+  return (
+    <View style={styles.container2}>
+      <Text style={{ padding: 20 }}> This is where you add notes </Text>
+      <Pressable
+        onPress={() => {
+          navigation.goBack();
+        }}
+      >
+        <Text style={{ color: "#ffbb00", fontWeight: "bold" }}>Dismiss</Text>
+      </Pressable>
+    </View>
+  );
+}
+
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            title: "Notes App",
-            headerTitleAlign: "center",
-            headerTitleStyle: {
-              fontSize: 18,
-              fontWeight: "bold",
-            },
-            headerStyle: {
-              backgroundColor: "yellow",
-            },
-          }}
-        />
+        <Stack.Group>
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{
+              title: "Notes App",
+              headerTitleAlign: "center",
+              headerTitleStyle: {
+                fontSize: 18,
+                fontWeight: "bold",
+              },
+              headerStyle: {
+                backgroundColor: "yellow",
+              },
+            }}
+          />
+        </Stack.Group>
+        <Stack.Group screenOptions={{ presentation: "modal" }}>
+          <Stack.Screen name="Add Note" component={AddNote} />
+        </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -84,5 +104,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f3faa7",
+  },
+  container2: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
   },
 });
